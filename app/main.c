@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdint.h>
+#include "main.h"
 
 int main(void)
 {
-        while(1)
-        { 
-            ;
-        }
+    led_init();
+    
+    while (1)
+    {
+        led_on();
+    }
 }

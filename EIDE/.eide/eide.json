@@ -14,11 +14,28 @@
             "path": "../app/main.c"
           }
         ],
-        "folders": []
+        "folders": [
+          {
+            "name": "inc",
+            "files": [
+              {
+                "path": "../app/inc/main.h"
+              }
+            ],
+            "folders": []
+          }
+        ]
       },
       {
         "name": "driver",
-        "files": [],
+        "files": [
+          {
+            "path": "../driver/led.c"
+          },
+          {
+            "path": "../driver/led.h"
+          }
+        ],
         "folders": []
       },
       {
@@ -263,14 +280,11 @@
       "custom_dep": {
         "name": "default",
         "incList": [
-          "../app",
           "../driver",
+          "../app/inc",
           "../firmware/cmsis/core",
           "../firmware/cmsis/device",
-          "../firmware/driver/inc",
-          "../firmware/driver/src",
-          ".cmsis/include",
-          "../mdk/RTE/_project"
+          "../firmware/driver/inc"
         ],
         "libList": [],
         "defineList": [
