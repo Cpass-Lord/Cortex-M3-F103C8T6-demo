@@ -17,6 +17,7 @@ void led_init()
 
     GPIO_Init(LED_PORT, &GPIO_InitStructure);
     GPIO_SetBits(LED_PORT, LED_PIN);
+    GPIO_WriteBit(LED_PORT, LED_PIN, Bit_SET);
 }
 
 void led_set(bool on)

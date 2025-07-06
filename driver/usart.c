@@ -1,6 +1,7 @@
 #include <stm32f10x.h>
 #include <string.h>
 #include <stdint.h>
+
 #include "usart.h"
 
 static usart_receivecallback_t usart_receivecallback;
@@ -45,8 +46,6 @@ static void usart_usart(void)
 
 static void usart_nvic(void)
 {
-    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
-
     NVIC_InitTypeDef NVIC_InitStructure;
     memset(&NVIC_InitStructure, 0, sizeof(NVIC_InitTypeDef));
     NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
@@ -55,7 +54,6 @@ static void usart_nvic(void)
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 
     NVIC_Init(&NVIC_InitStructure);
-    
 }
 
 void usart_init()

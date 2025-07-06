@@ -1,28 +1,23 @@
 #include "main.h"
 
-static uint8_t rxdata[16];
-static uint16_t rxlen;
-
-static void usart_receive(uint8_t data)
+static void ontime(void)
 {
-    if (rxlen < 15)
+    static uint32_t counter = 0;
+
+    if (++counter == 500)
     {
-        rxdata[rxlen++] = data;
+        counter = 0;
+        led_toggle(); // Toggle LED state
     }
 }
 
 int main(void)
 {
-    usart_init();
-    usart_receive_register(usart_receive);
+    Overbroad_init();
+    led_init();
+    timer_init(1000);
+    timer_elapsed_regiser(ontime);
     while (1)
     {
-        if (rxlen > 0)
-        {
-            usart_send_string("receive:");
-            usart_send_data(rxdata, rxlen);
-            rxlen = 0;
-            usart_send_string("\r\n");
-        }
     }
 }

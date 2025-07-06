@@ -12,6 +12,9 @@
         "files": [
           {
             "path": "../app/main.c"
+          },
+          {
+            "path": "../app/boardset.c"
           }
         ],
         "folders": [
@@ -20,6 +23,9 @@
             "files": [
               {
                 "path": "../app/inc/main.h"
+              },
+              {
+                "path": "../app/inc/boardset.h"
               }
             ],
             "folders": []
@@ -40,6 +46,12 @@
           },
           {
             "path": "../driver/usart.h"
+          },
+          {
+            "path": "../driver/timer.c"
+          },
+          {
+            "path": "../driver/timer.h"
           }
         ],
         "folders": []
