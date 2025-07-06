@@ -52,6 +52,12 @@
           },
           {
             "path": "../driver/timer.h"
+          },
+          {
+            "path": "../driver/delay.c"
+          },
+          {
+            "path": "../driver/delay.h"
           }
         ],
         "folders": []

@@ -5,8 +5,10 @@
 #include "usart.h"
 
 static usart_receivecallback_t usart_receivecallback;
+static dma_sendcompletecallback_t dma_sendcompletecallback;
 
-static void usart_gpio(void)
+static void
+usart_gpio(void)
 {
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 
@@ -29,6 +31,7 @@ static void usart_gpio(void)
 static void usart_usart(void)
 {
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+    RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 
     USART_InitTypeDef USART_Initstructure;
     memset(&USART_Initstructure, 0, sizeof(USART_InitTypeDef));
@@ -41,6 +44,7 @@ static void usart_usart(void)
 
     USART_Init(USART1, &USART_Initstructure);
     USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+    USART_DMACmd(USART1, USART_DMAReq_Tx, ENABLE);
     USART_Cmd(USART1, ENABLE);
 }
 
@@ -54,6 +58,14 @@ static void usart_nvic(void)
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 
     NVIC_Init(&NVIC_InitStructure);
+
+    memset(&NVIC_InitStructure, 0, sizeof(NVIC_InitTypeDef));
+    NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel4_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 5;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+
+    NVIC_Init(&NVIC_InitStructure);
 }
 
 void usart_init()
@@ -61,6 +73,28 @@ void usart_init()
     usart_gpio();
     usart_usart();
     usart_nvic();
+}
+
+void usart_send_data_async(uint8_t *data, uint16_t len)
+{
+    DMA_DeInit(DMA1_Channel4);
+
+    DMA_InitTypeDef DMA_InitStructure;
+    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&USART1->DR; // USART1_DR_Base;
+    DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)data;
+    DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+    DMA_InitStructure.DMA_BufferSize = len;
+    DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+    DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+    DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+    DMA_InitStructure.DMA_Priority = DMA_Priority_Medium;
+    DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+
+    DMA_Init(DMA1_Channel4, &DMA_InitStructure);
+    DMA_ITConfig(DMA1_Channel4, DMA_IT_TC, ENABLE);
+    DMA_Cmd(DMA1_Channel4, ENABLE);
 }
 
 void usart_send_data(uint8_t *data, uint16_t len)
@@ -96,5 +130,22 @@ void USART1_IRQHandler()
             usart_receivecallback(data);
         }
         USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+    }
+}
+
+void dma_sendcomplete_register(dma_sendcompletecallback_t callback)
+{
+    dma_sendcompletecallback = callback;
+}
+
+void DMA1_Channel4_IRQHandler()
+{
+    if (DMA_GetFlagStatus(DMA1_FLAG_TC4) != RESET)
+    {
+        if (dma_sendcompletecallback)
+        {
+            dma_sendcompletecallback();
+        }
+        DMA_ClearITPendingBit(DMA1_IT_TC4);
     }
 }
