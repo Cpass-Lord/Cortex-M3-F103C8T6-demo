@@ -7,11 +7,8 @@
 static usart_receivecallback_t usart_receivecallback;
 static dma_sendcompletecallback_t dma_sendcompletecallback;
 
-static void
-usart_gpio(void)
+static void usart_gpio(void)
 {
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-
     GPIO_InitTypeDef GPIO_Initstructure;
     memset(&GPIO_Initstructure, 0, sizeof(GPIO_InitTypeDef));
     GPIO_Initstructure.GPIO_Mode = GPIO_Mode_AF_PP;
@@ -30,9 +27,6 @@ usart_gpio(void)
 
 static void usart_usart(void)
 {
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
-    RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
-
     USART_InitTypeDef USART_Initstructure;
     memset(&USART_Initstructure, 0, sizeof(USART_InitTypeDef));
     USART_Initstructure.USART_BaudRate = 115200;                                    // 波特率

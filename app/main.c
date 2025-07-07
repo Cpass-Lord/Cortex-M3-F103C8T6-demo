@@ -1,40 +1,31 @@
 #include "main.h"
 
-static bool dmaflag;
+static uint8_t rxdata[16];
+static uint16_t rxlen;
 
-static void ontime(void)
+static void usart_receivedata(uint8_t data)
 {
-    static uint32_t counter = 0;
-
-    if (++counter == 500)
+    if (rxlen < 15)
     {
-        counter = 0;
-        led_toggle(); // Toggle LED state
+        rxdata[rxlen++] = data;
     }
-}
-
-static void dmastate(void)
-{
-    dmaflag = true;
 }
 
 int main(void)
 {
     Overbroad_init();
-    led_init();
     usart_init();
-    timer_init(1000);
-    timer_elapsed_regiser(ontime);
-    dma_sendcomplete_register(dmastate);
-
-    const char str[] = "Helloworld!";
-
+    usart_receive_register(usart_receivedata);
+    st7735_init();
+    st7735_fill_screen(ST7735_GREEN);
+    const char str[] = "helloworld!";
     while (1)
     {
-        dmaflag = false;
-        usart_send_data_async((uint8_t *)str, strlen(str));
-        delay_ms(1000);
-        while (!dmaflag)
-            ;
+        usart_send_data(rxdata,rxlen);
+        rxlen = 0;
+        st7735_write_string(0, 0, (char *)rxdata, &font_ascii_8x16, ST7735_BLUE, ST7735_WHITE);
+        st7735_write_string(0, 50, str, &font_ascii_8x16, ST7735_BLUE, ST7735_WHITE);
+        st7735_write_fonts(0, 30, &font_ni_hao_shi_jie_16x16,0,4, ST7735_BLUE, ST7735_WHITE);
+
     }
 }

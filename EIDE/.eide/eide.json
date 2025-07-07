@@ -60,7 +60,32 @@
             "path": "../driver/delay.h"
           }
         ],
-        "folders": []
+        "folders": [
+          {
+            "name": "st7735",
+            "files": [
+              {
+                "path": "../driver/st7735/lcd_spi.c"
+              },
+              {
+                "path": "../driver/st7735/lcd_spi.h"
+              },
+              {
+                "path": "../driver/st7735/st7735.c"
+              },
+              {
+                "path": "../driver/st7735/st7735.h"
+              },
+              {
+                "path": "../driver/st7735/stfonts.c"
+              },
+              {
+                "path": "../driver/st7735/stfonts.h"
+              }
+            ],
+            "folders": []
+          }
+        ]
       },
       {
         "name": "firmware",
@@ -308,7 +333,8 @@
           "../app/inc",
           "../firmware/cmsis/core",
           "../firmware/cmsis/device",
-          "../firmware/driver/inc"
+          "../firmware/driver/inc",
+          "../driver/st7735"
         ],
         "libList": [],
         "defineList": [

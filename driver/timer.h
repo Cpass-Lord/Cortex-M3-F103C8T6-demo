@@ -1,7 +1,6 @@
 #ifndef _TIMER_H
 #define _TIMER_H
 
-#include <stm32f10x.h>
 #include <stdint.h>
 
 typedef void (*timer_elapsedcallback_t)(void);

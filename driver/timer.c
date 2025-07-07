@@ -8,8 +8,6 @@ static timer_elapsedcallback_t timer_elapsedcallback;
 
 void timer_init(uint32_t us)
 {
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
-
     TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
     memset(&TIM_TimeBaseStructure, 0, sizeof(TIM_TimeBaseInitTypeDef));
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
