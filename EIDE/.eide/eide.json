@@ -84,6 +84,24 @@
               }
             ],
             "folders": []
+          },
+          {
+            "name": "mpu6050",
+            "files": [
+              {
+                "path": "../driver/mpu6050/mpu6050.c"
+              },
+              {
+                "path": "../driver/mpu6050/mpu6050.h"
+              },
+              {
+                "path": "../driver/mpu6050/swi2c.c"
+              },
+              {
+                "path": "../driver/mpu6050/swi2c.h"
+              }
+            ],
+            "folders": []
           }
         ]
       },
@@ -334,7 +352,8 @@
           "../firmware/cmsis/core",
           "../firmware/cmsis/device",
           "../firmware/driver/inc",
-          "../driver/st7735"
+          "../driver/st7735",
+          "../driver/mpu6050"
         ],
         "libList": [],
         "defineList": [

@@ -11,3 +11,4 @@
 #include "usart.h"
 #include "timer.h"
 #include "st7735.h"
+#include "mpu6050.h"
