@@ -58,6 +58,18 @@
           },
           {
             "path": "../driver/delay.h"
+          },
+          {
+            "path": "../driver/pwm.c"
+          },
+          {
+            "path": "../driver/pwm.h"
+          },
+          {
+            "path": "../driver/rtc.c"
+          },
+          {
+            "path": "../driver/rtc.h"
           }
         ],
         "folders": [
