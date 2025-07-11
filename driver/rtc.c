@@ -1,6 +1,7 @@
 #include "stm32f10x.h" // Device header
 #include "rtc.h"
 #include <string.h>
+#include <stdint.h>
 #include <stdbool.h>
 
 // 日期验证函数
@@ -139,5 +140,21 @@ void rtc_get_date(rtc_date_t *date)
     if (date)
     {
         ts_to_date(ts, date); // Convert timestamp to date structure
+    }
+}
+
+void rtc_set_timestamp(uint32_t timesatmp)
+{
+    RTC_WaitForLastTask();
+    RTC_SetCounter(timesatmp);
+    RTC_WaitForLastTask();
+}
+
+void rtc_get_timestamp(uint32_t *timesatmp)
+{
+
+    if (timesatmp)
+    {
+        *timesatmp = RTC_GetCounter();
     }
 }

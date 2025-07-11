@@ -14,5 +14,7 @@ typedef struct
 void rtc_init(void);
 void rtc_set_date(rtc_date_t *date);
 void rtc_get_date(rtc_date_t *date);
+void rtc_set_timestamp(uint32_t timesatmp);
+void rtc_get_timestamp(uint32_t *timesatmp);
 
 #endif

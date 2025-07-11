@@ -14,3 +14,5 @@
 #include "mpu6050.h"
 #include "pwm.h"
 #include "rtc.h"
+#include "esp32_at.h"
+#include "weather.h"

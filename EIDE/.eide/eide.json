@@ -15,6 +15,9 @@
           },
           {
             "path": "../app/boardset.c"
+          },
+          {
+            "path": "../app/weather.c"
           }
         ],
         "folders": [
@@ -26,6 +29,9 @@
               },
               {
                 "path": "../app/inc/boardset.h"
+              },
+              {
+                "path": "../app/inc/weather.h"
               }
             ],
             "folders": []
@@ -111,6 +117,24 @@
               },
               {
                 "path": "../driver/mpu6050/swi2c.h"
+              }
+            ],
+            "folders": []
+          },
+          {
+            "name": "esp32",
+            "files": [
+              {
+                "path": "../driver/esp32/esp32_at.c"
+              },
+              {
+                "path": "../driver/esp32/esp32_at.h"
+              },
+              {
+                "path": "../driver/esp32/esp32_usart.c"
+              },
+              {
+                "path": "../driver/esp32/esp32_usart.h"
               }
             ],
             "folders": []
@@ -334,7 +358,8 @@
             }
           ]
         },
-        "options": "null"
+        "options": "null",
+        "archExtensions": ""
       },
       "uploader": "OpenOCD",
       "uploadConfig": {
@@ -365,7 +390,8 @@
           "../firmware/cmsis/device",
           "../firmware/driver/inc",
           "../driver/st7735",
-          "../driver/mpu6050"
+          "../driver/mpu6050",
+          "../driver/esp32"
         ],
         "libList": [],
         "defineList": [
@@ -400,5 +426,5 @@
       }
     }
   },
-  "version": "3.5"
+  "version": "3.6"
 }

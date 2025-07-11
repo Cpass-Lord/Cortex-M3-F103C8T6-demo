@@ -23,8 +23,6 @@ void pwm_init(uint32_t us)
 
     TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure); // Initialize timer base structure
 
-    TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE); // Enable timer update interrupt
-
     TIM_OCInitTypeDef TIM_OCInitStructure; // Define timer output compare structure
     memset(&TIM_OCInitStructure, 0, sizeof(TIM_OCInitTypeDef));
     TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;             // Set PWM mode to PWM1
