@@ -35,6 +35,30 @@
               }
             ],
             "folders": []
+          },
+          {
+            "name": "icon",
+            "files": [
+              {
+                "path": "../app/icon/icon_weather_duoyun.c"
+              },
+              {
+                "path": "../app/icon/icon_weather_feng.c"
+              },
+              {
+                "path": "../app/icon/icon_weather_qing.c"
+              },
+              {
+                "path": "../app/icon/icon_weather_xue.c"
+              },
+              {
+                "path": "../app/icon/icon_weather_yin.c"
+              },
+              {
+                "path": "../app/icon/icon_weather_yu.c"
+              }
+            ],
+            "folders": []
           }
         ]
       },
@@ -99,6 +123,15 @@
               },
               {
                 "path": "../driver/st7735/stfonts.h"
+              },
+              {
+                "path": "../driver/st7735/font_temper_32.c"
+              },
+              {
+                "path": "../driver/st7735/font_time_48.c"
+              },
+              {
+                "path": "../driver/st7735/stimage.h"
               }
             ],
             "folders": []
@@ -289,7 +322,7 @@
               "id": 1,
               "mem": {
                 "startAddr": "0x20000000",
-                "size": "0x5000"
+                "size": "0x50000"
               },
               "isChecked": true,
               "noInit": false

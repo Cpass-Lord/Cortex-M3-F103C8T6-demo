@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <math.h>
-#include "main.h"
+#include "delay.h"
 #include "swi2c.h"
 #include "mpu6050.h"
 

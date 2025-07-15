@@ -347,6 +347,22 @@ void st7735_draw_pixel(uint16_t x, uint16_t y, uint16_t color)
     st7735_unselect();
 }
 
+static const uint8_t *st7735_find_font(const st_fonts_t *font, char ch)
+{
+    uint32_t bytes_per_line = (font->width + 7) / 8;
+
+    for (uint32_t i = 0; i < font->count; i++)
+    {
+        const uint8_t *pcode = font->data + i * (font->height * bytes_per_line + 1);
+        if (*pcode == ch)
+        {
+            return pcode + 1;
+        }
+    }
+
+    return NULL;
+}
+
 void st7735_write_char(uint16_t x, uint16_t y, char ch, st_fonts_t *font, uint16_t color, uint16_t bgcolor)
 {
     st7735_select();
@@ -356,9 +372,10 @@ void st7735_write_char(uint16_t x, uint16_t y, char ch, st_fonts_t *font, uint16
     uint32_t bytes_per_line = (font->width + 7) / 8;
 
     uint8_t *pbuff = gram_buff;
+    const uint8_t *fcode = st7735_find_font(font, ch);
     for (uint32_t y = 0; y < font->height; y++)
     {
-        const uint8_t *pcode = font->data + ch * font->height * bytes_per_line + y * bytes_per_line;
+        const uint8_t *pcode = fcode + y * bytes_per_line;
         for (uint32_t x = 0; x < font->width; x++)
         {
             uint8_t b = pcode[x >> 3];
@@ -467,7 +484,7 @@ void st7735_fill_screen(uint16_t color)
     st7735_fill_rect(0, 0, ST7735_WIDTH, ST7735_HEIGHT, color);
 }
 
-void st7735_draw_image(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t *data)
+void st7735_draw_image(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t *data)
 {
     if ((x >= ST7735_WIDTH) || (y >= ST7735_HEIGHT))
         return;
@@ -478,6 +495,6 @@ void st7735_draw_image(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t *
 
     st7735_select();
     st7735_set_window(x, y, x + w - 1, y + h - 1);
-    st7735_write_data(data, w * h * 2);
+    st7735_write_data((uint8_t *)data, w * h * 2);
     st7735_unselect();
 }

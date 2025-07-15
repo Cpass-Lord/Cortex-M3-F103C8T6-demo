@@ -1,5 +1,5 @@
-#ifndef __MPU6050_H__
-#define __MPU6050_H__
+#ifndef __MPU6050_H
+#define __MPU6050_H
 
 
 #include <stdbool.h>
@@ -33,6 +33,5 @@ bool mpu6050_init(void);
 void mpu6050_read_accel(mpu6050_accel_t *accel);
 void mpu6050_read_gyro(mpu6050_gyro_t *gyro);
 float mpu6050_read_temper(void);
-
 
 #endif /* __MPU6050_H__ */
